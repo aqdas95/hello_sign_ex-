@@ -1,16 +1,16 @@
-# HelloSignEx
+# Hellosign
 
 **TODO: Add description**
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `hello_sign_ex` to your list of dependencies in `mix.exs`:
+by adding `hellosign_ex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:hello_sign_ex, "~> 0.1.0"}
+    {:hellosign_ex, "~> 0.1.0"}
   ]
 end
 ```

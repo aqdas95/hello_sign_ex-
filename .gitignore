@@ -24,3 +24,6 @@ hello_sign_ex-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Local dialyzer files
+/.elixir_ls/

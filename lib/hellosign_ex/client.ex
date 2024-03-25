@@ -88,10 +88,10 @@ defmodule Hellosign.Client do
 
   def basic(config) do
     auth = Base.encode64("#{config.api_key() || Config.api_key()}:")
-    {"Authorization", "Bearer #{auth}"}
+    {"Authorization", "Basic #{auth}"}
   end
 
-  def api_post(url, {:form, %{} = params}, config) do
+  def api_post(url, {:form, params}, config) when is_map(params) do
     body =
       params
       |> AtomizeKeys.stringify_atom_keys()

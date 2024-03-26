@@ -26,7 +26,7 @@ defmodule Hellosign do
   See https://developers.hellosign.com/api/quickstart for further info on REST endpoints
   """
 
-  alias Hellosign.Config
+  alias Hellosign.{Config, Embedded}
 
   use Application
 
@@ -36,4 +36,26 @@ defmodule Hellosign do
 
     Supervisor.start_link(children, opts)
   end
+
+  @spec create_embedded(Embedded.create_request(), Config.t()) :: {:ok, Embedded.create_response()} | {:error, map()}
+  @doc """
+  Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If
+  form_fields_per_document is not specified, a signature page will be affixed where all signers will
+  be required to add their signature, signifying their agreement to all contained documents. Note that
+  embedded signature requests can only be signed in embedded iFrames whereas normal signature requests
+  can only be signed on Dropbox Sign.
+
+  See: https://developers.hellosign.com/api/reference/operation/signatureRequestCreateEmbedded/
+
+  ## Example request
+  ```elixir
+      Hellosign.Embedded.create_request()
+  ```
+
+  ## Example response
+  ```elixir
+      Hellosign.Embedded.create_response()
+  ```
+  """
+  defdelegate create_embedded(params, config \\ %Config{}), to: Embedded, as: :create
 end

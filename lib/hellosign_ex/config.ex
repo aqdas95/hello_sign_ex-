@@ -26,10 +26,19 @@ defmodule Hellosign.Config do
   and caches the final config in memory to avoid parsing on each read afterwards.
   """
 
+  @type t :: %{
+          api_key: String.t(),
+          client_id: String.t(),
+          test_mode: String.t(),
+          api_url: String.t(),
+          default_cc: String.t()
+        }
+
   defstruct api_key: nil,
             client_id: nil,
             test_mode: nil,
-            api_url: nil
+            api_url: nil,
+            default_cc: nil
 
   use GenServer
 
@@ -38,7 +47,8 @@ defmodule Hellosign.Config do
   @config_keys [
     :api_key,
     :client_id,
-    :test_mode
+    :test_mode,
+    :default_cc
   ]
 
   def start_link(opts), do: GenServer.start_link(__MODULE__, opts, name: __MODULE__)
@@ -55,8 +65,12 @@ defmodule Hellosign.Config do
 
   # API Key
   def api_key, do: get_config_value(:api_key)
+
   def client_id, do: get_config_value(:client_id)
-  def test_mode, do: get_config_value(:test_mode)
+
+  def test_mode, do: get_config_value(:test_mode, "false")
+
+  def default_cc, do: get_config_value(:default_cc)
 
   # API Url
   def api_url, do: get_config_value(:api_url, @hellosign_url)

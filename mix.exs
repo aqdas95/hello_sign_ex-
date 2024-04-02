@@ -19,7 +19,7 @@ defmodule Hellosign.MixProject do
   def application do
     [
       mod: {Hellosign, []},
-      applications: [:httpoison, :jason, :logger],
+      applications: [:atomize_keys, :httpoison, :jason, :logger],
       extra_applications: [:logger]
     ]
   end
@@ -53,6 +53,7 @@ defmodule Hellosign.MixProject do
       {:httpoison, "~> 2.0"},
       {:mock, "~> 0.3.6", only: [:test]},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_doc, ">= 0.29.3", only: :dev}
     ]
   end

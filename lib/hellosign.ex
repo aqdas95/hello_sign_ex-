@@ -37,7 +37,6 @@ defmodule Hellosign do
     Supervisor.start_link(children, opts)
   end
 
-  @spec create_embedded(Embedded.create_request(), Config.t()) :: {:ok, Embedded.create_response()} | {:error, map()}
   @doc """
   Creates a new SignatureRequest with the submitted documents to be signed in an embedded iFrame. If
   form_fields_per_document is not specified, a signature page will be affixed where all signers will
@@ -57,5 +56,32 @@ defmodule Hellosign do
       Hellosign.Embedded.create_response()
   ```
   """
+
+  @spec create_embedded(Embedded.create_request(), Config.t()) ::
+          {:ok, Embedded.create_response()} | {:error, map}
+
   defdelegate create_embedded(params, config \\ %Config{}), to: Embedded, as: :create
+
+  @doc """
+  Retrieves an embedded object containing a signature url that can be opened in an iFrame. Note that templates created via the embedded template process will only be accessible through the API.
+
+  See: https://developers.hellosign.com/api/reference/operation/embeddedSignUrl/
+
+  ## Example request
+  ```elixir
+      Hellosign.Embedded.get_sign_url_request()
+  ```
+
+  ## Example response
+  ```elixir
+      Hellosign.Embedded.get_sign_url_response()
+  ```
+  """
+
+  @spec get_embedded_sign_url(Embedded.get_sign_url_request(), Config.t()) ::
+          {:ok, Embedded.get_sign_url_response()} | {:error, map}
+
+  defdelegate get_embedded_sign_url(signature_id, config \\ %Config{}),
+    to: Embedded,
+    as: :get_sign_url
 end

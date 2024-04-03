@@ -3,7 +3,7 @@ defmodule Hellosign.MixProject do
 
   def project do
     [
-      app: :hellosign,
+      app: :hellosign_ex,
       version: "0.1.0",
       elixir: "~> 1.15",
       escription: description(),

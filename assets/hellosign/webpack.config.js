@@ -11,7 +11,7 @@ const config = {
     './src/embedded.js',
   ],
   output: {
-    path: path.join(__dirname, 'umd'),
+    path: path.join(__dirname, '../../priv/static'),
     filename: 'embedded.js',
     library: 'HelloSign',
     libraryExport: 'default',

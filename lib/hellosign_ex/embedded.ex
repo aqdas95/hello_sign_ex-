@@ -24,8 +24,6 @@ defmodule Hellosign.Embedded do
   alias Hellosign.Types, as: T
   alias Hellosign.{Client, Config}
 
-  @base_url "/signature_request"
-
   @typedoc """
   The create request type
 
@@ -144,7 +142,7 @@ defmodule Hellosign.Embedded do
 
   @spec create(create_request(), Config.t()) :: {:ok, create_response()} | {:error, map()}
   def create(params, config \\ %Config{}) do
-    url = @base_url <> "/create_embedded"
+    url = "/signature_request/create_embedded"
 
     params =
       params
@@ -155,6 +153,33 @@ defmodule Hellosign.Embedded do
 
     Client.api_post(url, params, config)
   end
+
+  @typedoc """
+  The get sign url request type
+
+    A string representing the signature id for the embedded url
+  """
+  @type get_sign_url_request :: String.t()
+
+  @type get_sign_url_response :: %{
+          embedded: %{
+            sign_url: String.t(),
+            expires_at: non_neg_integer()
+          }
+        }
+
+  @spec get_sign_url(get_sign_url_request(), Config.t()) ::
+          {:error, any()} | {:ok, get_sign_url_response()}
+  def get_sign_url(signature_id, config \\ %Config{})
+
+  def get_sign_url(signature_id, config) when is_binary(signature_id) do
+    url = "/embedded/sign_url/#{signature_id}"
+
+    Client.api_get(url, [], config)
+  end
+
+  def get_sign_url(_signature_id, _config),
+    do: {:error, %{error: "Invalid signature id"}}
 
   defp prepare_create_params(%{files: files} = params) when not is_nil(files) and files != [],
     do: {:multipart, params}

@@ -43,6 +43,8 @@ defmodule Hellosign.Client do
     end
   end
 
+  @spec handle_response({:error, HTTPoison.Error.t()} | {:ok, HTTPoison.Response.t()}) ::
+          {:error, any()} | {:ok, any()}
   def handle_response(httpoison_response) do
     case httpoison_response do
       {:ok, %HTTPoison.Response{status_code: 200, body: {:ok, body}}} ->
@@ -90,6 +92,20 @@ defmodule Hellosign.Client do
     auth = Base.encode64("#{config.api_key() || Config.api_key()}:")
     {"Authorization", "Basic #{auth}"}
   end
+
+  @spec api_get(binary(), keyword(), Config.t()) ::
+          {:error, any()} | {:ok, any()}
+
+  def api_get(url, params, config) when is_list(params) do
+    url
+    |> get(request_headers(config, :json), params)
+    |> handle_response()
+  end
+
+  def api_get(_url, _params, _config), do: {:error, %{error: "Invalid parameters"}}
+
+  @spec api_post(binary(), {:form, map()}, Config.t()) ::
+          {:error, any()} | {:ok, any()}
 
   def api_post(url, {:form, params}, config) when is_map(params) do
     body =

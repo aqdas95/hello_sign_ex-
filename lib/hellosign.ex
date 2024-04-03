@@ -26,7 +26,7 @@ defmodule Hellosign do
   See https://developers.hellosign.com/api/quickstart for further info on REST endpoints
   """
 
-  alias Hellosign.{Config, Embedded}
+  alias Hellosign.{Config, Embedded, File}
 
   use Application
 
@@ -84,4 +84,25 @@ defmodule Hellosign do
   defdelegate get_embedded_sign_url(signature_id, config \\ %Config{}),
     to: Embedded,
     as: :get_sign_url
+
+  @doc """
+    Retrieves the requeted file against the provided signature request id.
+
+    See when type is set to,
+      default: https://developers.hellosign.com/api/reference/operation/signatureRequestFiles/
+      data_uri: https://developers.hellosign.com/api/reference/operation/signatureRequestFilesAsDataUri/
+      file_url: https://developers.hellosign.com/api/reference/operation/signatureRequestFilesAsFileUrl/
+  """
+
+  @spec download_file(
+          File.download_criteria(),
+          File.download_path_type(),
+          File.download_params(),
+          Config.t()
+        ) ::
+          {:ok, bitstring() | File.data_uri_response() | File.file_url_response()}
+          | {:error, map()}
+  defdelegate download_file(type, signature_request_id, params, config \\ %Config{}),
+    to: File,
+    as: :download
 end

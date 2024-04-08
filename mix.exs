@@ -4,14 +4,15 @@ defmodule Hellosign.MixProject do
   def project do
     [
       app: :hellosign_ex,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.15",
-      escription: description(),
+      description: description(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
       name: "hellosign_ex",
-      source_url: source()
+      source_url: source(),
+      docs: docs()
     ]
   end
 
@@ -45,6 +46,13 @@ defmodule Hellosign.MixProject do
 
   defp source, do: "https://github.com/aqdas95/hellosign_ex.git"
 
+  defp docs do
+    [
+      main: Hellosign,
+      extras: ["readme.md", "LICENSE"]
+    ]
+  end
+
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
@@ -54,7 +62,8 @@ defmodule Hellosign.MixProject do
       {:mock, "~> 0.3.6", only: [:test]},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:ex_doc, ">= 0.29.3", only: :dev}
+      {:ex_doc, "~> 0.31", only: :dev, runtime: false},
+      {:makeup_html, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 end

@@ -26,12 +26,12 @@ defmodule Hellosign.Config do
   and caches the final config in memory to avoid parsing on each read afterwards.
   """
 
-  @type t :: %{
-          api_key: String.t(),
-          client_id: String.t(),
-          test_mode: String.t(),
-          api_url: String.t(),
-          default_cc: String.t()
+  @type t :: %__MODULE__{
+          api_key: String.t() | nil,
+          client_id: String.t() | nil,
+          test_mode: String.t() | nil,
+          api_url: String.t() | nil,
+          default_cc: String.t() | nil
         }
 
   defstruct api_key: nil,

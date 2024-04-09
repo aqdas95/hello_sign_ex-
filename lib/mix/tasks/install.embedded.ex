@@ -5,15 +5,24 @@ defmodule Mix.Tasks.Install.Embedded do
 
   @impl Mix.Task
 
-  def run(_) do
-    System.cmd("mkdir", ["assets/vendor/hellosign"])
-    System.cmd("touch", ["assets/vendor/hellosign/embedded.js"])
+  def run(args) do
+    project_path =
+      with ["--umbrella", name] <- args do
+        "apps/#{name}/"
+      else
+        _ -> ""
+      end
+
+    System.cmd("mkdir", ["#{project_path}assets"])
+    System.cmd("mkdir", ["#{project_path}assets/vendor"])
+    System.cmd("mkdir", ["#{project_path}assets/vendor/hellosign"])
+    System.cmd("touch", ["#{project_path}assets/vendor/hellosign/embedded.js"])
 
     System.cmd("curl", [
       "-L",
-      "https://raw.githubusercontent.com/aqdas95/hellosign_ex/feature/hellosign-embedded-signing/priv/static/embedded.production.min.js",
+      "https://cdn.jsdelivr.net/npm/hellosign-embedded@2.12.0/umd/embedded.production.min.js",
       "-o",
-      "assets/vendor/hellosign/embedded.js"
+      "#{project_path}assets/vendor/hellosign/embedded.js"
     ])
   end
 end

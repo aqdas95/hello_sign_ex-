@@ -111,6 +111,7 @@ defmodule Hellosign.Client do
     body =
       params
       |> AtomizeKeys.stringify_atom_keys()
+      |> IO.inspect(label: "Data for Converter")
       |> FormDataConverter.map_to_form_data()
 
     url

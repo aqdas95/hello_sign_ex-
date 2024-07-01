@@ -19,8 +19,7 @@ defmodule Hellosign.MixProject do
   def application do
     [
       mod: {Hellosign, []},
-      applications: [:atomize_keys, :httpoison, :jason, :logger],
-      extra_applications: [:logger]
+      extra_applications: [:atomize_keys, :httpoison, :jason, :logger]
     ]
   end
 

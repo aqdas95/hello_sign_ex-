@@ -4,7 +4,7 @@ defmodule Hellosign.MixProject do
   def project do
     [
       app: :hellosign_ex,
-      version: "0.1.1",
+      version: "0.1.2",
       elixir: "~> 1.15",
       description: description(),
       start_permanent: Mix.env() == :prod,

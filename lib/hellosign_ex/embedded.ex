@@ -107,27 +107,25 @@ defmodule Hellosign.Embedded do
   """
 
   @type create_request :: %{
-          required(:client_id) => String.t(),
+          required(:file_urls) => [String.t()],
+          required(:signers) => [T.signer()],
           optional(:files) => [binary()],
-          optional(:file_urls) => [String.t()],
-          optional(:signers) => [T.signer()],
           optional(:grouped_signers) => [T.signer_group()],
-          required(:allow_decline) => boolean(),
-          required(:allow_resign) => boolean(),
+          optional(:allow_decline) => boolean(),
+          optional(:allow_resign) => boolean(),
           optional(:attachemnts) => [T.sub_attachment()],
           optional(:cc_email_addresses) => [String.t()],
           optional(:custom_fields) => [T.custom_field()],
           optional(:field_options) => [T.field_option()],
           optional(:form_field_groups) => [T.sub_form_field_group()],
-          required(:hide_text_tags) => boolean(),
+          optional(:hide_text_tags) => boolean(),
           optional(:message) => String.t(),
           optional(:metadata) => any(),
-          required(:signing_options) => T.sub_signing_options(),
+          optional(:signing_options) => T.sub_signing_options(),
           optional(:subject) => String.t(),
-          required(:test_mode) => boolean(),
           optional(:title) => String.t(),
-          required(:use_text_tags) => boolean(),
-          required(:populate_auto_fill_fields) => boolean(),
+          optional(:use_text_tags) => boolean(),
+          optional(:populate_auto_fill_fields) => boolean(),
           optional(:expires_at) => non_neg_integer(),
 
           # TODO: Following need to be defined
@@ -136,8 +134,7 @@ defmodule Hellosign.Embedded do
         }
 
   @type create_response :: %{
-          signature_request: T.signature_request(),
-          warnings: [T.warning()]
+          signature_request: T.signature_request()
         }
 
   @spec create(create_request(), Config.t()) :: {:ok, create_response()} | {:error, map()}

@@ -101,22 +101,22 @@ defmodule Hellosign.Types do
   * `signatures` - An array of signature objects, 1 for each signer.
   """
   @type signature_request :: %{
-          required(:test_mode) => boolean(),
           required(:signature_request_id) => String.t(),
-          required(:requester_email_address) => String.t(),
-          required(:title) => String.t(),
-          required(:original_title) => String.t(),
+          required(:files_url) => [String.t()],
+          required(:signatures) => [signature()],
+          optional(:requester_email_address) => String.t(),
+          optional(:title) => String.t(),
+          optional(:original_title) => String.t(),
           optional(:subject) => String.t(),
           optional(:message) => String.t(),
           optional(:metadata) => map(),
-          required(:created_at) => String.t(),
-          required(:expires_at) => String.t(),
-          required(:is_complete) => boolean(),
-          required(:is_declined) => boolean(),
-          required(:has_error) => boolean(),
-          required(:files_url) => [String.t()],
-          required(:signing_url) => String.t(),
-          required(:details_url) => String.t(),
+          optional(:created_at) => String.t(),
+          optional(:expires_at) => String.t(),
+          optional(:is_complete) => boolean(),
+          optional(:is_declined) => boolean(),
+          optional(:has_error) => boolean(),
+          optional(:signing_url) => String.t(),
+          optional(:details_url) => String.t(),
           optional(:cc_email_addresses) => [String.t()],
           optional(:signing_redirect_url) => String.t(),
           optional(:template_ids) => [String.t()],
@@ -126,8 +126,7 @@ defmodule Hellosign.Types do
           optional(:attachments) => [map()],
 
           # TODO: Define type => https://developers.hellosign.com/api/reference/operation/signatureRequestGet/#!c=200&path=signature_request/response_data&t=response
-          optional(:response_data) => [map()],
-          optional(:signatures) => [signature()]
+          optional(:response_data) => [map()]
         }
 
   @typedoc """
@@ -156,24 +155,24 @@ defmodule Hellosign.Types do
   """
   @type signature :: %{
           required(:signature_id) => String.t(),
-          optional(:signer_group_guid) => String.t(),
           required(:signer_email_address) => String.t(),
           required(:signer_name) => String.t(),
-          optional(:signer_role) => String.t(),
+          required(:signed_at) => non_neg_integer() | nil,
+          optional(:status_code) => String.t(),
+          optional(:signer_group_guid) => String.t(),
+          optional(:signer_role) => String.t() | nil,
           optional(:order) => non_neg_integer(),
-          required(:status_code) => String.t(),
           optional(:decline_reason) => String.t(),
-          optional(:signed_at) => non_neg_integer(),
-          optional(:last_viewed_at) => non_neg_integer(),
-          optional(:last_reminded_at) => non_neg_integer(),
-          required(:has_pin) => boolean(),
+          optional(:last_viewed_at) => non_neg_integer() | nil,
+          optional(:last_reminded_at) => non_neg_integer() | nil,
+          optional(:has_pin) => boolean(),
           optional(:has_sms_auth) => boolean(),
           optional(:has_sms_delivery) => boolean(),
-          optional(:sms_phone_number) => String.t(),
+          optional(:sms_phone_number) => String.t() | nil,
           optional(:reassigned_by) => String.t(),
           optional(:reassignment_reason) => String.t(),
           optional(:reassigned_from) => String.t(),
-          optional(:error) => String.t()
+          optional(:error) => String.t() | nil
         }
 
   @typedoc """

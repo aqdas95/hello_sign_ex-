@@ -110,7 +110,7 @@ defmodule Hellosign.Embedded do
           required(:client_id) => String.t(),
           optional(:files) => [binary()],
           optional(:file_urls) => [String.t()],
-          optional(:signers) => [Signer.t()],
+          optional(:signers) => [T.signer()],
           optional(:grouped_signers) => [T.signer_group()],
           required(:allow_decline) => boolean(),
           required(:allow_resign) => boolean(),

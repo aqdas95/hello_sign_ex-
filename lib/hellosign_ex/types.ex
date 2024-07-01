@@ -219,7 +219,7 @@ defmodule Hellosign.Types do
 
   @type signer_group :: %{
           required(:group) => String.t(),
-          required(:signers) => [Signer.t()],
+          required(:signers) => [signer],
           optional(:order) => non_neg_integer()
         }
 

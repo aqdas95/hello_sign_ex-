@@ -77,7 +77,7 @@ defmodule Hellosign.Config do
 
   defp get_config_value(key, default \\ nil) do
     value =
-      :hellosign
+      :hellosign_ex
       |> Application.get_env(key)
       |> parse_config_value()
 

@@ -188,7 +188,7 @@ defmodule Hellosign.Embedded do
     Map.put(params, :cc_email_addresses, mails ++ [default_cc])
   end
 
-  defp add_test_mode(params, "true"), do: Map.put(params, :test_mode, "true")
+  defp add_test_mode(params, "true"), do: Map.put(params, :test_mode, true)
 
-  defp add_test_mode(params, "false"), do: params
+  defp add_test_mode(params, "false"), do: Map.put(params, :test_mode, false)
 end
